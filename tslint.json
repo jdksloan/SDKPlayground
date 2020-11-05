@@ -1,0 +1,62 @@
+{
+  "rules": {
+    "quotemark": [true, "single"],
+    "no-null-keyword": true,
+    "array-type": [true, "array-simple"],
+    "arrow-return-shorthand": true,
+    "ban": [
+      true,
+      {
+        "name": "parseFloat",
+        "message": "tsstyle#type-coercion"
+      },
+      {
+        "name": "Array",
+        "message": "tsstyle#array-constructor"
+      }
+    ],
+    "ban-types": [true, ["Object", "Use {} instead."], ["String", "Use 'string' instead."], ["Number", "Use 'number' instead."], ["Boolean", "Use 'boolean' instead."]],
+    "class-name": true,
+    "curly": [true],
+    "forin": true,
+    "interface-name": [true, "always-prefix"],
+    "jsdoc-format": true,
+    "label-position": true,
+    "member-access": [true, "check-accessor"],
+    "new-parens": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-any": false,
+    "no-empty": true,
+    "no-eval": true,
+    "no-arg": true,
+    "no-string-literal": true,
+    "no-unreachable": true,
+    "no-switch-case-fall-through": true,
+    "no-var-requires": false,
+    "no-use-before-declare": true,
+    "no-conditional-assignment": true,
+    "no-trailing-whitespace": true,
+    "no-construct": true,
+    "no-console": [true, "log", "error"],
+    "no-debugger": true,
+    "no-duplicate-variable": true,
+    "no-duplicate-key": true,
+    "no-inferrable-types": false,
+    "no-reference": true,
+    "no-string-throw": true,
+    "no-unused-expression": true,
+    "no-unused-variable": true,
+    "no-var-keyword": true,
+    "object-literal-shorthand": [false, "always"],
+    "typedef": true,
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "prefer-const": true,
+    "radix": true,
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
+    "switch-default": true,
+    "triple-equals": [true, "allow-null-check"],
+    "use-isnan": true,
+    "variable-name": [true, "check-format", "ban-keywords", "allow-leading-underscore", "allow-trailing-underscore"],
+    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"]
+  }
+}
