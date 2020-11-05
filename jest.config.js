@@ -7,7 +7,7 @@ module.exports = {
   testRegex: '(/.*.(test|spec)).(jsx?|tsx?)$',
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.test.json'
+      tsconfig: 'tsconfig.json'
     }
   },
   moduleFileExtensions: ['ts', 'js'],
@@ -20,6 +20,5 @@ module.exports = {
       lines: 80,
       statements: -10
     }
-  },
-  watchPlugins: ['jest-watch-lerna-packages']
+  }
 };
