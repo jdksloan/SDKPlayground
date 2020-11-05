@@ -37,8 +37,9 @@ export class Graph<T, V> {
   public printGraph() {
     let str = '';
     for (const [key, val] of this._adjacencies) {
-      str += `${key} -> ${val.map((x) => x.id).join(', ')} `;
+      str += `${key} -> ${val.map((x) => x.id).join(', ')} \n`;
     }
+    return str;
   }
 
   public breadthFirstSearch(startNode: Node<T, V>, callBack?: IProcess<T, V>): Map<T, V> {

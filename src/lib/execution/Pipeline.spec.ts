@@ -75,7 +75,7 @@ describe('Test Pipeline', () => {
     const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
     instance.addNanos(fakeNano);
     await instance.execute(fakePayload);
-    expect(ExecutionContext.prototype.setData).toHaveBeenCalledWith('input', model);
+    expect(ExecutionContext.prototype.setData).toHaveBeenCalledWith('pipelineName', 'test');
     expect(fakeNano.execute).toHaveBeenCalled();
     expect(ExecutionContext.prototype.getData).toHaveBeenCalled();
     expect(fakePayload.data).toBe(fakeExCtxOutput);
@@ -88,7 +88,7 @@ describe('Test Pipeline', () => {
     const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
     instance.addNanos(fakeNano);
     await instance.execute(fakePayload);
-    expect(ExecutionContext.prototype.setData).toHaveBeenCalledWith('input', model);
+    expect(ExecutionContext.prototype.setData).toHaveBeenCalledWith('pipelineName', 'test');
     expect(fakeNano.execute).toHaveBeenCalled();
     expect(ExecutionContext.prototype.getData).toHaveBeenCalled();
     expect(fakeReqContext.pushExecutionContext).toHaveBeenCalled();
@@ -105,28 +105,28 @@ describe('Test Pipeline', () => {
     expect(fakeInput.receiveMessage).toHaveBeenCalled();
   });
 
-  test('validation fails', async () => {
-    const fakeRes = {
-      isValid: jest.fn().mockImplementation(() => false),
-      toString: jest.fn().mockImplementation(() => 'fakeError')
-    };
+  // test('validation fails', async () => {
+  //   const fakeRes = {
+  //     isValid: jest.fn().mockImplementation(() => false),
+  //     toString: jest.fn().mockImplementation(() => 'fakeError')
+  //   };
 
-    fakeInput = {
-      connect: jest.fn(),
-      receiveMessage: jest.fn(),
-      dispose: jest.fn(),
-      attach: jest.fn(),
-      terminate: jest.fn().mockReturnValue(Promise.resolve()),
-      getSchema: jest.fn().mockReturnValue({
-        setData: jest.fn(),
-        validate: jest.fn().mockReturnValue(fakeRes)
-      })
-    } as IInput<Payload>;
-    const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
-    instance.addNanos(fakeNano);
-    await instance.execute(fakePayload);
-    expect(console.error).toBeCalledWith(new Error('Pipeline test failed to execute with validation errors: fakeError'), 'test', fakePayload);
-  });
+  //   fakeInput = {
+  //     connect: jest.fn(),
+  //     receiveMessage: jest.fn(),
+  //     dispose: jest.fn(),
+  //     attach: jest.fn(),
+  //     terminate: jest.fn().mockReturnValue(Promise.resolve()),
+  //     getSchema: jest.fn().mockReturnValue({
+  //       setData: jest.fn(),
+  //       validate: jest.fn().mockReturnValue(fakeRes)
+  //     })
+  //   } as IInput<Payload>;
+  //   const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
+  //   instance.addNanos(fakeNano);
+  //   await instance.execute(fakePayload);
+  //   expect(console.error).toBeCalledWith(new Error('Pipeline test failed to execute with validation errors: fakeError'), 'test', fakePayload);
+  // });
 
   test('validation fails', async () => {
     const fakeRes = {

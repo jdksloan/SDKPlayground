@@ -51,41 +51,9 @@ describe('Test Service', () => {
     instance.addPipelines({} as IPipeline);
   });
 
-  test('connect', async () => {
-    const redisConn = 'redConString';
-    const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    (instance as any).webSocket = {
-      adapter: jest.fn()
-    };
-    (instance as any)._configInput = {
-      connect: jest.fn(),
-      receiveMessage: jest.fn()
-    };
-    await (instance as any).connect();
-    expect(fakeConfig.getValue).toBeCalledWith(redisConn);
-  });
-
-  test('connect with error', async () => {
-    const redisConn = 'redConString';
-    let errorThrown = false;
-    fakeConfig.getValue = jest.fn().mockImplementation((x) => {
-      throw new Error('Fake Error');
-    });
-    const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    try {
-      await (instance as any).connect();
-    } catch (error) {
-      errorThrown = true;
-      expect(error.message).toBe(`Service name failed to connect with error: Error: Fake Error`);
-    }
-    expect(errorThrown).toBeTruthy();
-  });
-
   test('start', async () => {
     const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    (instance as any).connect = jest.fn();
-    (instance as any)._httpServer.listen = jest.fn();
-    (instance as any)._activePipelines = fakePipe;
+    (instance as any)._pipelines = fakePipe;
     await instance.start();
     expect(fakePipe[0].load).toHaveBeenCalled();
   });
@@ -93,31 +61,9 @@ describe('Test Service', () => {
   test('start with task', async () => {
     const instance = new Service(new ServiceModel('name', 80, fakeConfig), fakeTask);
     (instance as any).connect = jest.fn();
-    (instance as any)._httpServer.listen = jest.fn();
-    (instance as any)._activePipelines = fakePipe;
+    (instance as any)._pipelines = fakePipe;
     await instance.start();
     expect(fakeTask.execute).toBeCalledTimes(1);
-  });
-
-  test('start with error', async () => {
-    const instance = new Service(new ServiceModel('name', 80, fakeConfig), fakeTask);
-    (instance as any)._config.fetch = jest.fn().mockImplementation(() => {
-      throw new Error('dudi');
-    });
-
-    await instance.start(3, 1);
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  test('start with error no mongo', async () => {
-    fakeConfig.getValue = jest.fn().mockImplementation((key) => undefined);
-    const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    (instance as any).connect = jest.fn();
-    (instance as any)._httpServer.listen = jest.fn();
-    (instance as any)._activePipelines = fakePipe;
-    await instance.start(1, 1);
-
-    expect(console.error).toHaveBeenCalled();
   });
 
   test('start with error on task', async () => {
@@ -146,16 +92,9 @@ describe('Test Service', () => {
     expect(instance.pipelines.length).toBe(1);
   });
 
-  test('listen', async () => {
-    const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    (instance as any)._listen();
-    expect(console.info).toBeCalledTimes(2);
-    expect(console.info).toBeCalledWith('Listening on: 80');
-  });
-
   test('terminate successfully', async () => {
     const instance = new Service(new ServiceModel('name', 80, fakeConfig));
-    (instance as any)._activePipelines = fakePipe;
+    (instance as any)._pipelines = fakePipe;
     (instance as any)._configInput = fakeInput;
 
     const mockExit = jest.spyOn(process, 'exit').mockImplementation((code?: number): never => code as never);
