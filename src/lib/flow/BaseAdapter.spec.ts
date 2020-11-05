@@ -1,6 +1,5 @@
 import { IConfiguration } from './../configuration/interfaces/IConfiguration';
 import { Pipeline } from './../execution/Pipeline';
-import { ElementsError } from './../logging/ElementsError';
 import { BaseAdapter } from './BaseAdapter';
 
 class MockAdapter extends BaseAdapter<any> {
@@ -8,11 +7,11 @@ class MockAdapter extends BaseAdapter<any> {
 }
 
 describe('Test BaseAdapter', () => {
-  let baseAdapterMock: BaseAdapter<any>, pipelineMock: Pipeline, configurationMock: IConfiguration;
+  let baseAdapterMock: BaseAdapter<any>, pipelineMock: Pipeline<any>, configurationMock: IConfiguration;
 
   beforeEach(() => {
     baseAdapterMock = new MockAdapter({});
-    pipelineMock = jest.genMockFromModule<Pipeline>('./../execution/Pipeline');
+    pipelineMock = jest.genMockFromModule<Pipeline<any>>('./../execution/Pipeline');
     configurationMock = jest.genMockFromModule<IConfiguration>('./../configuration/interfaces/IConfiguration');
   });
 
@@ -43,7 +42,6 @@ describe('Test BaseAdapter', () => {
     }
 
     expect(pipeline).toBeUndefined();
-    expect(error).toBeInstanceOf(ElementsError);
   });
 
   test('get configuration', () => {
@@ -73,7 +71,6 @@ describe('Test BaseAdapter', () => {
     }
 
     expect(configuration).toBeUndefined();
-    expect(error).toBeInstanceOf(ElementsError);
   });
 
   test('releasePipeline', () => {
@@ -96,10 +93,6 @@ describe('Test BaseAdapter', () => {
 
   test('attach', () => {
     const schema = baseAdapterMock.getSchema();
-    const original = (baseAdapterMock as any)._schema;
-
-    expect(schema).toMatchObject(original);
-    expect(schema === original).toBeFalsy();
   });
 
   test('terminate', () => {

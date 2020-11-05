@@ -7,7 +7,7 @@ module.exports = {
   testRegex: '(/.*.(test|spec)).(jsx?|tsx?)$',
   globals: {
     'ts-jest': {
-      tsconfig: 'tsconfig.json'
+      tsconfig: 'tsconfig.test.json'
     }
   },
   moduleFileExtensions: ['ts', 'js'],

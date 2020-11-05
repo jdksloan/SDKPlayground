@@ -43,7 +43,7 @@ describe('Test Pipeline', () => {
       attach: jest.fn(),
       terminate: jest.fn().mockReturnValue(Promise.resolve()),
       getSchema: jest.fn().mockReturnValue(fakeSchema)
-    } as IInput<any>;
+    } as IInput<Payload>;
 
     fakeOutput = {
       connect: jest.fn(),
@@ -53,7 +53,7 @@ describe('Test Pipeline', () => {
       attach: jest.fn(),
       terminate: jest.fn().mockReturnValue(Promise.resolve()),
       getSchema: jest.fn().mockReturnValue(fakeSchema)
-    } as IOutput<any>;
+    } as IOutput<Payload>;
 
     model = Object.assign(fakeSchema, fakePayload.data);
   });
@@ -121,7 +121,7 @@ describe('Test Pipeline', () => {
         setData: jest.fn(),
         validate: jest.fn().mockReturnValue(fakeRes)
       })
-    } as IInput<any>;
+    } as IInput<Payload>;
     const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
     instance.addNanos(fakeNano);
     await instance.execute(fakePayload);
@@ -144,7 +144,7 @@ describe('Test Pipeline', () => {
         setData: jest.fn(),
         validate: jest.fn().mockReturnValue(fakeRes)
       })
-    } as IInput<any>;
+    } as IInput<Payload>;
     const instance = new Pipeline('test', fakeConfig, fakeInput, fakeOutput);
     instance.addNanos(fakeNano);
     await instance.execute(fakePayload);
