@@ -1,2 +1,2 @@
-# SDkPlayground
+# SDKPlayground
 NodeJS, TypeScript Playground
