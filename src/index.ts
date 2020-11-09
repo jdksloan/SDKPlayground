@@ -1,6 +1,4 @@
-import { IProcess } from './lib/data/interfaces/IProcess';
-import { Graph } from './lib/data/Graph';
-import { Node } from './lib/data/Node';
+import { IProcess, Node, Graph } from 'ts-graph-structure';
 
 const process: IProcess<number, number> = {
   process(node: Node<number, number>): boolean {
