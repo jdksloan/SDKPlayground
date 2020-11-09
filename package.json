@@ -21,5 +21,8 @@
     "tslint": "^6.1.3",
     "typescript": "^4.0.5",
     "ts-graph-structure": "^1.0.1"
+  },
+  "dependencies": {
+    "ts-neo4j-parser": "^1.0.0"
   }
 }

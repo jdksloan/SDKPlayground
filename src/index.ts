@@ -1,4 +1,5 @@
 import { IProcess, Node, Graph } from 'ts-graph-structure';
+import { JsonParser } from 'ts-neo4j-parser';
 
 const process: IProcess<number, number> = {
   process(node: Node<number, number>): boolean {
